@@ -1,0 +1,52 @@
+Target dependency graph (18 targets)
+Target 'Runner' in project 'Runner'
+➜ Implicit dependency on target 'Pods-Runner' in project 'Pods' via file 'Pods_Runner.framework' in build phase 'Link Binary'
+➜ Implicit dependency on target 'flutter_email_sender' in project 'Pods' via options '-framework flutter_email_sender' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'map_launcher' in project 'Pods' via options '-framework map_launcher' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'maps_launcher' in project 'Pods' via options '-framework maps_launcher' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'package_info_plus' in project 'Pods' via options '-framework package_info_plus' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'path_provider_foundation' in project 'Pods' via options '-framework path_provider_foundation' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'share_plus' in project 'Pods' via options '-framework share_plus' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'shared_preferences_foundation' in project 'Pods' via options '-framework shared_preferences_foundation' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'url_launcher_ios' in project 'Pods' via options '-framework url_launcher_ios' in build setting 'OTHER_LDFLAGS'
+Target 'Pods-Runner' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'flutter_email_sender' in project 'Pods'
+➜ Explicit dependency on target 'map_launcher' in project 'Pods'
+➜ Explicit dependency on target 'maps_launcher' in project 'Pods'
+➜ Explicit dependency on target 'package_info_plus' in project 'Pods'
+➜ Explicit dependency on target 'path_provider_foundation' in project 'Pods'
+➜ Explicit dependency on target 'share_plus' in project 'Pods'
+➜ Explicit dependency on target 'shared_preferences_foundation' in project 'Pods'
+➜ Explicit dependency on target 'url_launcher_ios' in project 'Pods'
+Target 'url_launcher_ios' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'url_launcher_ios-url_launcher_ios_privacy' in project 'Pods'
+Target 'url_launcher_ios-url_launcher_ios_privacy' in project 'Pods' (no dependencies)
+Target 'shared_preferences_foundation' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'shared_preferences_foundation-shared_preferences_foundation_privacy' in project 'Pods'
+Target 'shared_preferences_foundation-shared_preferences_foundation_privacy' in project 'Pods' (no dependencies)
+Target 'share_plus' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'share_plus-share_plus_privacy' in project 'Pods'
+Target 'share_plus-share_plus_privacy' in project 'Pods' (no dependencies)
+Target 'path_provider_foundation' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'path_provider_foundation-path_provider_foundation_privacy' in project 'Pods'
+Target 'path_provider_foundation-path_provider_foundation_privacy' in project 'Pods' (no dependencies)
+Target 'package_info_plus' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'package_info_plus-package_info_plus_privacy' in project 'Pods'
+Target 'package_info_plus-package_info_plus_privacy' in project 'Pods' (no dependencies)
+Target 'maps_launcher' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+Target 'map_launcher' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'map_launcher-map_launcher_privacy' in project 'Pods'
+Target 'map_launcher-map_launcher_privacy' in project 'Pods' (no dependencies)
+Target 'flutter_email_sender' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'flutter_email_sender-flutter_email_sender' in project 'Pods'
+Target 'flutter_email_sender-flutter_email_sender' in project 'Pods' (no dependencies)
+Target 'Flutter' in project 'Pods' (no dependencies)

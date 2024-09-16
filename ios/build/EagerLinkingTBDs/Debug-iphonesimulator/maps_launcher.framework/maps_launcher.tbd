@@ -1,0 +1,74 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_$s13maps_launcher23SwiftMapsLauncherPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctF",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginCMn",
+            "_maps_launcherVersionNumber",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginC8register4withySo07FlutterF9Registrar_p_tFZ",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginCACycfc",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginCACycfC",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginCfD",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginCN",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginCMa",
+            "_$s13maps_launcher23SwiftMapsLauncherPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctFTq",
+            "_maps_launcherVersionString"
+          ],
+          "objc_class": [
+            "PodsDummy_maps_launcher",
+            "_TtC13maps_launcher23SwiftMapsLauncherPlugin",
+            "MapsLauncherPlugin"
+          ]
+        }
+      },
+      {
+        "data": {
+          "global": [
+            "_Swift50Overrides",
+            "_Swift51Overrides"
+          ]
+        },
+        "targets": [
+          "x86_64-ios-simulator"
+        ],
+        "text": {
+          "global": [
+            "__ZN5swift34swift50override_conformsToProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEPFPKNS_18TargetWitnessTableIS1_EES4_S8_E",
+            "__Z34_swiftoverride_class_getSuperclassPKN5swift14TargetMetadataINS_9InProcessEEE",
+            "__ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/maps_launcher.framework/maps_launcher"
+      }
+    ],
+    "swift_abi": [
+      {
+        "abi": 7
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "12",
+        "target": "x86_64-ios-simulator"
+      },
+      {
+        "min_deployment": "14",
+        "target": "arm64-ios-simulator"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}

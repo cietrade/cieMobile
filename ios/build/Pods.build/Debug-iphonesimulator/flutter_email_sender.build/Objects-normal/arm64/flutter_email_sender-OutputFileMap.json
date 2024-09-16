@@ -1,0 +1,18 @@
+{
+  "" : {
+    "diagnostics" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/flutter_email_sender-master.dia",
+    "emit-module-dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/flutter_email_sender-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/flutter_email_sender-master-emit-module.dia",
+    "swift-dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/flutter_email_sender-master.swiftdeps"
+  },
+  "/Users/marccovey/.pub-cache/hosted/pub.dev/flutter_email_sender-6.0.3/ios/Classes/SwiftFlutterEmailSenderPlugin.swift" : {
+    "const-values" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin.swiftconstvalues",
+    "dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin.d",
+    "diagnostics" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin.o",
+    "llvm-bc" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin.bc",
+    "object" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin.o",
+    "swift-dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin.swiftdeps",
+    "swiftmodule" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/flutter_email_sender.build/Objects-normal/arm64/SwiftFlutterEmailSenderPlugin~partial.swiftmodule"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "" : {
+    "diagnostics" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/map_launcher-master.dia",
+    "emit-module-dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/map_launcher-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/map_launcher-master-emit-module.dia",
+    "swift-dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/map_launcher-master.swiftdeps"
+  },
+  "/Users/marccovey/.pub-cache/hosted/pub.dev/map_launcher-3.3.1/ios/Classes/SwiftMapLauncherPlugin.swift" : {
+    "const-values" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin.swiftconstvalues",
+    "dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin.d",
+    "diagnostics" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin.o",
+    "llvm-bc" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin.bc",
+    "object" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin.o",
+    "swift-dependencies" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin.swiftdeps",
+    "swiftmodule" : "/Users/marccovey/StudioProjects/cieMobile/ios/build/Pods.build/Debug-iphonesimulator/map_launcher.build/Objects-normal/x86_64/SwiftMapLauncherPlugin~partial.swiftmodule"
+  }
+}
