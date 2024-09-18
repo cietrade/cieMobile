@@ -473,6 +473,7 @@ class _OrderPageState extends State<OrderPage> {
               Ordered: body["Details"][i]["Ordered"] == null ? "" : (body["Details"][i]["Ordered"].toString().isEmpty ? "0" : body["Details"][i]["Ordered"].toString()),
               Shipped: body["Details"][i]["Shipped"] == null ? "" : (body["Details"][i]["Shipped"].toString().isEmpty ? "0" : body["Details"][i]["Shipped"].toString()),
               Opened: body["Details"][i]["Opened"] == null ? "" : (body["Details"][i]["Opened"].toString().isEmpty ? "0" : body["Details"][i]["Opened"].toString()),
+              LinkedWks: body["Details"][i]["LinkedWks"] == null ? "" : body["Details"][i]["LinkedWks"].toString(),
             )
         );
       }

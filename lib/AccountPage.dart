@@ -655,7 +655,7 @@ class _AccountPageState extends State<AccountPage> {
     if(widget.account.Addr1.isNotEmpty ){addr += "${widget.account.Addr1}\n";}
     if(widget.account.Addr2.isNotEmpty ){addr += "${widget.account.Addr2}\n";}
     if(widget.account.Addr3.isNotEmpty ){addr += "${widget.account.Addr3}\n";}
-    if("${widget.account.City}, ${widget.account.Region} ${widget.account.PostalCd} ${widget.account.Country}".isNotEmpty ){
+    if("${widget.account.City}, ${widget.account.Region} ${widget.account.PostalCd} ${widget.account.Country}".replaceAll(",", "").trim().isNotEmpty ){
       addr += "${widget.account.City}, ${widget.account.Region} ${widget.account.PostalCd} ${widget.account.Country}";
     }
 
@@ -688,8 +688,8 @@ class _AccountPageState extends State<AccountPage> {
           {
             FlutterEmailSender.send(
                 Email(
-                  body: '',
-                  subject: "",
+                  body: " ",
+                  subject: " ",
                   recipients: [widget.account.Email],
                   cc: [''],
                   bcc: [''],
@@ -1072,6 +1072,18 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   void saveContact(String CT_ID, List<String> Roles) async{
+    String notValid = "";
+    RegExp phoneReg = new RegExp(r'(^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)');
+    RegExp emailReg = new RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    if(_txtName.text.isEmpty){notValid += "Name, ";}
+    if(!phoneReg.hasMatch(_txtMobileNo.text) && _txtMobileNo.text.isNotEmpty){notValid += "Mobile Phone, ";}
+    if(!phoneReg.hasMatch(_txtWorkNo.text) && _txtWorkNo.text.isNotEmpty){notValid += "Work Phone, ";}
+    if(!emailReg.hasMatch(_txtEmail.text) && _txtEmail.text.isNotEmpty){notValid += "Email, ";}
+    if(notValid.isNotEmpty){
+      notValid = notValid.substring(0, notValid.length - 2);
+      PopUp(context, "Save Failed", "Must enter valid ${notValid}");
+      return;
+    }
     Response rep = await post(Uri.parse("${globals.http}://app.cietrade.com/cieAppREST/api/cieMobileUpdateCreate?User=${globals.userID}&Pswd=${globals.userPswd}&UpdateType=CONTACT&Location=${_cboLocation.text}&Notes=${_txtNotes.text}&Email=${_txtEmail.text}&PhoneBusiness=${_txtWorkNo.text}&PhoneMobile=${_txtMobileNo.text}&CT_ID=${CT_ID}&Roles=${getRoleStr(Roles)}&ContactNm=${_txtName.text}&PhoneOther=${_txtOtherNo.text}&FileAs=${_txtFileAs.text}&CpID=${widget.account.CpID}&CompanyNm=${_txtCompany.text}"));
     if(rep.statusCode != 200){
       PopUp(context, "Error", "Save failed");

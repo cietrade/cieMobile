@@ -294,6 +294,7 @@ class _SearchPageState extends State<SearchPage> {
               Ordered: body["Details"][i]["Ordered"] == null ? "" : body["Details"][i]["Ordered"].toString(),
               Shipped: body["Details"][i]["Shipped"] == null ? "" : body["Details"][i]["Shipped"].toString(),
               Opened: body["Details"][i]["Opened"] == null ? "" : body["Details"][i]["Opened"].toString(),
+              LinkedWks: body["Details"][i]["LinkedWks"] == null ? "" : body["Details"][i]["LinkedWks"].toString(),
             )
         );
       }

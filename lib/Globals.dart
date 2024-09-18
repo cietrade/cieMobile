@@ -212,11 +212,11 @@ class Worksheet{
    String Ordered = "";
    String Shipped="";
    String Opened="";
-
+   String LinkedWks="";
    OrderDetail({  String PODetailID ="", String GradeID ="", String GradeNm ="", String OrderNo ="", String PODesc ="",
    String Specifications ="", String Weight ="0", String WeightUOM ="L", String Packaging ="", String UnitTypeID ="",
    String Units ="0", String Price ="0", String PriceUOM ="L", String FxAmount ="0", String CurrencyCd ="USD", String Amount ="0",
-     String Ordered = "0", String Shipped="0", String Opened="0" }){
+     String Ordered = "0", String Shipped="0", String Opened="0", String LinkedWks = "" }){
      this.PODetailID =PODetailID;
      this.GradeID =GradeID;
      this.GradeNm =GradeNm;
@@ -236,6 +236,7 @@ class Worksheet{
      this.Ordered = Ordered;
      this.Shipped = Shipped;
      this.Opened = Opened;
+     this.LinkedWks = LinkedWks;
   }
 }
 

@@ -15,6 +15,7 @@ import 'HomePage.dart';
 import 'SearchPageCbo.dart';
 import 'OrderPage.dart';
 import 'dart:math';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OrderEditPage extends StatefulWidget{
   final globals.Order Order;
@@ -127,7 +128,27 @@ class _OrderEditPageState extends State<OrderEditPage> {
     }
     //Create PO Detail tiles
     for(var i = 0; i < curOrder.Details.length; i++){
-      details.add(getDetailTile(curOrder.Details[i]));
+      details.add(
+          Slidable(
+            child: getDetailTile(curOrder.Details[i]),
+            endActionPane:  ActionPane(
+              motion: ScrollMotion(),
+              children: [
+                SlidableAction(
+                  // An action can be bigger than the others.
+                  flex: 2,
+                  onPressed: (BuildContext context){ deleteDetail(curOrder.Details[i]);},
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  icon: Icons.delete_outline,
+                  label: 'Delete',
+                ),
+              ],
+
+            ),
+          )
+      );
+
       details.add(detailDiv);
     }
     details.add(
@@ -158,11 +179,16 @@ class _OrderEditPageState extends State<OrderEditPage> {
             shadowColor: Colors.transparent,
             centerTitle: true,
             actions: [
-              TextButton(
+              curOrder.PONumber.isEmpty ? Text("") :
+              IconButton(
+                onPressed: ()=>{deleteConfirm()},
+                icon: Icon(Icons.delete_outline, color: Colors.blue,),
+              ),
+              isSaving ? const Center( child: CircularProgressIndicator.adaptive(),) :
+              IconButton(
                 onPressed: ()=>{saveOrder()},
-                child:  isSaving ? const Center( child: CircularProgressIndicator.adaptive(),) :
-                  Text("Save", softWrap: false, style: GoogleFonts.lato( textStyle:const TextStyle(fontWeight: FontWeight.normal, fontSize: 17, color: Colors.blue))),
-              )
+                icon: Icon(Icons.save_outlined, color: Colors.blue,),
+              ),
             ],
             title:  Text(
                 curOrder.PONumber.isEmpty ? "New ${curOrder.Source.trim()}" : "${curOrder.Source.trim()}# ${curOrder.PONumber}",
@@ -859,17 +885,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
                 ],
               ),
           ),
-          div,
-          const SizedBox(height: 20,),
-          Center(child:
-          FloatingActionButton.extended(
-            elevation: 0,
-            backgroundColor: Colors.red,
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-            onPressed: (){deleteDetail(curDetail);},
-            label: Text('Delete Item', style: GoogleFonts.lato( textStyle: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)),),
-          )
-          )
+
         ],
       ),
     );
@@ -1034,6 +1050,10 @@ class _OrderEditPageState extends State<OrderEditPage> {
   }
 
   void deleteDetail(globals.OrderDetail detail){
+    if(detail.LinkedWks.isNotEmpty){
+      PopUp(context, "Delete Failed", "Order item is linked to a worksheet detail on Wks ${detail.LinkedWks}");
+      return;
+    }
     for(int i = 0; i < curOrder.Details.length; i++){
       if(curOrder.Details[i].PODetailID == detail.PODetailID){
         curOrder.Details.remove(curOrder.Details[i]);
@@ -1065,6 +1085,35 @@ class _OrderEditPageState extends State<OrderEditPage> {
     );
   }
 
+  void deleteConfirm(){
+    AlertDialog alert = AlertDialog(
+      title: Text("Confirm delete", style: GoogleFonts.lato(fontSize: 23, fontWeight: FontWeight.w700, color: Color(0xFF676769))),
+      content: Text("Are you sure you want to delete this order?", style: GoogleFonts.lato(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF676769))),
+      actions: [
+        TextButton(
+          child: Text("Cancel", style:GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF676769)) ),
+          onPressed: () {
+            Navigator.pop(context, 'OK');
+          },
+        ),
+        TextButton(
+          child: Text("OK", style:GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF676769)) ),
+          onPressed: () {
+            Navigator.pop(context, 'OK');
+            deleteOrder();
+
+          },
+        ),
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {return alert;},
+    );
+  }
+
   //API CALLS
   void getShipTo() async{
     Response rep = await patch(Uri.parse("${globals.http}://app.cietrade.com/cieAppREST/api/cieMobileDashboard?User=${globals.userID}&Pswd=${globals.userPswd}&objType=SHIPTO&ObjID=${curOrder.CpID}&ObjID2=${_txtLocation.text}&UserID=${globals.cieTradeUserID}"));
@@ -1079,6 +1128,51 @@ class _OrderEditPageState extends State<OrderEditPage> {
     }
   }
 
+void deleteOrder() async{
+  var url = Uri.parse("${globals.http}://app.cietrade.com/cieAppREST/api/cieMobileUpdateCreate");
+
+  Map data = {
+    "User":"${globals.userID}",
+    "Pswd":"${globals.userPswd}",
+    "PONumber":curOrder.PONumber,
+    "UserID":"${globals.cieTradeUserID}",
+    "Source": curOrder.Source,
+    "POReference":curOrder.Reference,
+    "COID":curOrder.DeptID,
+    "TradeType": curOrder.TradeType,
+    "PODate": curOrder.PODate.replaceAll("T12:0:0", "").replaceAll("T00:00:00", ""),
+    "Status":curOrder.Status,
+    "CpID":curOrder.CpID,
+    "AddrType": curOrder.AddrType,
+    "ShipAddrType": curOrder.ShipAddrType,
+    "ShipTo":_txtShipTo.text,
+    "ShipAddrID": curOrder.ShipAddrID,
+    "Terms": curOrder.Terms,
+    "PriceBasis": curOrder.PriceBasis,
+    "FxRate":curOrder.FxRate,
+    "Currency": curOrder.Currency,
+    "ScheduleDt": curOrder.ScheduleDt.replaceAll("T12:0:0", "").replaceAll("T00:00:00", ""),
+    "ExpirationDt": curOrder.ExpirationDt.replaceAll("T12:0:0", "").replaceAll("T00:00:00", ""),
+    "Instructions": curOrder.Instructions.trim(),
+    "ShipVia": curOrder.ShipVia,
+    "DestPort": curOrder.DestCountry,
+    "OrderType": curOrder.OrderType,
+    "MinWt": curOrder.MinWt.replaceAll(",", ""),
+    "MaxWt": curOrder.MaxWt.replaceAll(",", ""),
+    "MinMaxUOM": curOrder.MinMaxUOM,
+    "Details": []
+  };
+
+  Response rep = await delete(url, headers: {"Content-Type": "application/json"}, body: json.encode(data));
+
+  if(rep.statusCode != 200){
+    PopUp(context, "Delete Failed", jsonDecode(rep.body)["Message"]);
+  } else {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+
+  }
+}
 
   void saveOrder() async{
     if(curOrder.TradeType.isEmpty && globals.ReqTradeType == "1"){
@@ -1192,6 +1286,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
               Ordered: body["Details"][i]["Ordered"] == null ? "" : (body["Details"][i]["Ordered"].toString().isEmpty ? "0" : body["Details"][i]["Ordered"].toString()),
               Shipped: body["Details"][i]["Shipped"] == null ? "" : (body["Details"][i]["Shipped"].toString().isEmpty ? "0" : body["Details"][i]["Shipped"].toString()),
               Opened: body["Details"][i]["Opened"] == null ? "" : (body["Details"][i]["Opened"].toString().isEmpty ? "0" : body["Details"][i]["Opened"].toString()),
+              LinkedWks: body["Details"][i]["LinkedWks"] == null ? "" : body["Details"][i]["LinkedWks"].toString(),
             )
         );
       }
