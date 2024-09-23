@@ -224,6 +224,7 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           backgroundColor: Colors.white,
           body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
               children: [
                 FutureBuilder<Widget>(
                     future: _page,
@@ -504,6 +505,8 @@ class _HomePageState extends State<HomePage> {
                   subTitle: subTitle,
                   onTap: () => {setOrder(ObjID, HeaderLabel)},
                   tail: "${DateFormat("MMM, d yyyy").format(dt)}",//tail: HeaderValue,
+                  onSlide: (){deleteConfirm(ObjID, ReportType.replaceAll("OPEN", ""));},
+                  isSlide: true,
                   money: "")
               );
               data.add(div);
@@ -569,6 +572,7 @@ class _HomePageState extends State<HomePage> {
                 onTap:  noPage ? (){} : () {setWks(ObjID, HeaderLabel, wksType);},
                 tail:  ColValue01 ,
                 money: HeaderValue,
+                onSlide: (){},
                 hasIcon: !noPage,),
 
             );
@@ -609,6 +613,7 @@ class _HomePageState extends State<HomePage> {
                 subTitle: subTitle,
                 onTap: () => {setTable(ReportType, AcctID, HeaderLabel)},
                 tail: HeaderValue,
+                onSlide: (){},
                 money: "")
             );
             data.add(div);
@@ -637,6 +642,7 @@ class _HomePageState extends State<HomePage> {
                 subTitle: subTitle,
                 onTap: () => {setTable(ReportType, AcctID, DetailTitle )},
                 tail: "",
+                onSlide: (){},
                 money: moneyStr)
             );
             data.add(div);
@@ -663,6 +669,7 @@ class _HomePageState extends State<HomePage> {
               subTitle: subTitle,
               onTap: ()=>{setTable(ReportType, "", ReportTitle )},
               tail: ReportValueLabel,
+              onSlide: (){},
               money: moneyStr)
           );
           data.add(div);
@@ -700,6 +707,73 @@ class _HomePageState extends State<HomePage> {
         onRefresh: refresh,
       );
     }
+  }
+
+  void deleteOrder(String PONumber, String Source) async{
+    var url = Uri.parse("${globals.http}://app.cietrade.com/cieAppREST/api/cieMobileUpdateCreate");
+
+    Map data = {
+      "User":"${globals.userID}",
+      "Pswd":"${globals.userPswd}",
+      "PONumber":PONumber,
+      "Source": Source,
+      "Details": []
+    };
+
+    Response rep = await delete(url, headers: {"Content-Type": "application/json"}, body: json.encode(data));
+
+    if(rep.statusCode != 200){
+      PopUp(context, "Delete Failed", jsonDecode(rep.body)["Message"]);
+    } else {
+      refresh();
+    }
+  }
+
+  void deleteConfirm(String PONumber, String Source){
+    AlertDialog alert;
+    if((Source == "SO" && globals.SODel == "0") || (Source == "PO" && globals.PODel == "0") ){
+      alert = AlertDialog(
+        title: Text("Permission Restriction ", style: GoogleFonts.lato(fontSize: 23, fontWeight: FontWeight.w700, color: Color(0xFF676769))),
+        content: Text("This user does not have permission to delete Orders.", style: GoogleFonts.lato(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF676769))),
+        actions: [
+          TextButton(
+            child: Text("OK", style:GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF676769)) ),
+            onPressed: () {
+              Navigator.pop(context, 'OK');
+            },
+          ),
+
+        ],
+      );
+    } else {
+      alert = AlertDialog(
+        title: Text("Confirm delete", style: GoogleFonts.lato(fontSize: 23, fontWeight: FontWeight.w700, color: Color(0xFF676769))),
+        content: Text("Are you sure you want to delete this order?", style: GoogleFonts.lato(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF676769))),
+        actions: [
+          TextButton(
+            child: Text("Cancel", style:GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF676769)) ),
+            onPressed: () {
+              Navigator.pop(context, 'OK');
+            },
+          ),
+          TextButton(
+            child: Text("OK", style:GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF676769)) ),
+            onPressed: () {
+              Navigator.pop(context, 'OK');
+              deleteOrder(PONumber, Source);
+
+            },
+          ),
+        ],
+      );
+    }
+
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {return alert;},
+    );
   }
 
 }

@@ -179,15 +179,10 @@ class _OrderEditPageState extends State<OrderEditPage> {
             shadowColor: Colors.transparent,
             centerTitle: true,
             actions: [
-              curOrder.PONumber.isEmpty ? Text("") :
-              IconButton(
-                onPressed: ()=>{deleteConfirm()},
-                icon: Icon(Icons.delete_outline, color: Colors.blue,),
-              ),
               isSaving ? const Center( child: CircularProgressIndicator.adaptive(),) :
-              IconButton(
+              TextButton(
                 onPressed: ()=>{saveOrder()},
-                icon: Icon(Icons.save_outlined, color: Colors.blue,),
+                child: Text("Save", softWrap: false, style: GoogleFonts.lato( textStyle:const TextStyle(fontWeight: FontWeight.normal, fontSize: 17, color: Colors.lightBlue))),
               ),
             ],
             title:  Text(
@@ -505,12 +500,12 @@ class _OrderEditPageState extends State<OrderEditPage> {
                                 enabledBorder:  OutlineInputBorder(borderSide:  BorderSide(color: greyBackground, width: 0.0),),
                                 focusedBorder: OutlineInputBorder(borderSide:  BorderSide(color: greyBackground, width: 1.0),)
                             ),
-                            onChanged:  (text){
+                            onTapOutside: (PointerDownEvent){
                               setState(() {
-                                curOrder.ShipToAddress = text;
+                                curOrder.ShipToAddress = _txtShipTo.text;
                               });
-
                             },
+
                           )
                       ),
                     ],

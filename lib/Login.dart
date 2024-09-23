@@ -238,6 +238,8 @@ class _LoginState extends State<LoginPage> {
       globals.POCreate = body["POCreate"];
       globals.POViewAll = body["POViewAll"];
       globals.POEmail = body["POEmail"];
+      globals.SODel = body["SODel"];
+      globals.PODel = body["PODel"];
       globals.WksViewAll = body["WksViewAll"];
       globals.WksViewUser = body["WksViewUser"];
       globals.WksViewReps = body["WksViewReps"];

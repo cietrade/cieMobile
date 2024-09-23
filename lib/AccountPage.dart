@@ -432,7 +432,7 @@ class _AccountPageState extends State<AccountPage> {
           IconButton(
             icon: const Icon(Icons.add_circle, color: Colors.green,),
             onPressed: (){
-              if(!curContact.Roles.contains(_cboRole.text)){
+              if(!curContact.Roles.contains(_cboRole.text) && _cboRole.text.isNotEmpty){
                 setState(() {
                   curContact.Roles.add(_cboRole.text);
                   curContact.ContactNm = _txtName.text ;
@@ -1206,6 +1206,7 @@ class _AccountPageState extends State<AccountPage> {
     Response rep = await patch(Uri.parse("${globals.http}://app.cietrade.com/cieAppREST/api/cieMobileDashboard?User=${globals.userID}&Pswd=${globals.userPswd}&objType=CONTACT_ROLES"));
     if(rep.statusCode == 200){
       var body = jsonDecode(rep.body);
+      data.add("");
       for(var i = 0; i < body.length; i++){
         data.add(body[i]["ObjID"] == null ? "" : body[i]["ObjID"].toString());
       }

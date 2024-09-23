@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'HelperFunctions.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class DataList extends StatefulWidget {
   final String Title;
@@ -114,7 +115,8 @@ class DataListTile extends StatelessWidget {
   final String money;
   final bool hasIcon;
   final List<String> subTitle;
-
+  final bool isSlide;
+  final Function onSlide;
   final Function() onTap;
   Divider div = const Divider(height: 1.2, color: Color(0xFFEAEAEB),);
   TextStyle titleStyle = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black));
@@ -125,7 +127,7 @@ class DataListTile extends StatelessWidget {
 
 
   DataListTile({
-    required this.title, required this.subTitle, required this.onTap, required this.tail, required this.money, this.hasIcon = true,
+    required this.title, required this.subTitle, required this.onTap, required this.tail, required this.money, this.hasIcon = true, this.isSlide = false, required this.onSlide
   });
 
 
@@ -143,7 +145,45 @@ class DataListTile extends StatelessWidget {
         child:Text(money, style: moneyStyle, overflow: TextOverflow.ellipsis, textAlign: TextAlign.right,)));
     }
 
-    return ListTile(
+    return
+      isSlide ?
+        Slidable(
+          endActionPane:  ActionPane(
+            motion: ScrollMotion(),
+            children: [
+              SlidableAction(
+                // An action can be bigger than the others.
+                flex: 2,
+                onPressed: (BuildContext context){onSlide();},
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                icon: Icons.delete_outline,
+                label: 'Delete',
+              ),
+            ],
+
+          ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 5),
+              dense: true,
+              tileColor: Colors.white,
+              onTap: onTap,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(flex: 6, child: Text(title, style: titleStyle, overflow: TextOverflow.ellipsis,),),
+                  Expanded(flex: 4, child:Text(tail, style: money.isEmpty ? moneyStyle : tailStyle, overflow: TextOverflow.ellipsis, textAlign: TextAlign.end,))
+                ],
+              ),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: details,
+              ),
+              trailing: hasIcon? const Icon(Icons.arrow_forward_ios, color: Color(0xFF8C8C8F), size: 15,) : Text(""),
+            ),
+        )
+
+   : ListTile(
       contentPadding: const EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 5),
       dense: true,
       tileColor: Colors.white,
