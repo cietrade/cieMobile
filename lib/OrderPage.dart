@@ -430,7 +430,7 @@ class _OrderPageState extends State<OrderPage> {
       File('${path}/${FileNm}').writeAsBytes(bytes);
       final Email emailObj = Email(
         body: '',
-        subject: FileNm,
+        subject: "Order ${widget.Order.PONumber}",
         recipients: [email],
         cc: [''],
         bcc: [''],

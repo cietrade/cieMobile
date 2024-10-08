@@ -95,7 +95,7 @@ double cnvDouble(String num){
   if(double.tryParse(num.replaceAll(",", "")) == null){
     return 0.0;
   }
-  return double.parse(num);
+  return double.parse(num.replaceAll(",", ""));
 }
 
 double lbsToUOM(double wt, String UOM){

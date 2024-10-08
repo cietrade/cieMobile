@@ -15,6 +15,7 @@ class DataList extends StatefulWidget {
   final String TotalAmt;
   final String TotalNo;
   final String backText;
+  final String ReportType;
   final bool showTotals;
   final bool isLoading;
   List<Widget> Tiles = [];
@@ -22,7 +23,7 @@ class DataList extends StatefulWidget {
   final Function() onBack;
   final Future<void> Function() onRefresh;
 
-  DataList({Key? key, required this.Title, required this.SubTitle, required this.btn, required this.Tiles, required this.TotalAmt, required this.TotalNo, required this.showTotals,  required this.backText, required this.isLoading, required this.onBack, required this.onRefresh,}) : super(key: key);
+  DataList({Key? key, required this.Title, required this.SubTitle, required this.btn, required this.Tiles, required this.TotalAmt, required this.TotalNo, required this.showTotals,  required this.backText, required this.isLoading, required this.onBack, required this.onRefresh, this.ReportType = ""}) : super(key: key);
 
   @override
   State<DataList> createState() => _DataListState();
@@ -88,14 +89,14 @@ class _DataListState extends State<DataList> {
         shadowColor: Colors.transparent,
         color: const Color(0xFFDCDCDC),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Items: ${widget.TotalNo}", style: GoogleFonts.lato(textStyle:  const TextStyle( fontSize: 16, color: Colors.black)),),
-                Text("Total:     ${widget.TotalAmt}", style: GoogleFonts.lato(textStyle:  const TextStyle( fontSize: 17, fontWeight: FontWeight.w700, color: Color(0xFF000086))),),
+                Text("${widget.ReportType == "OPENSO" || widget.ReportType == "OPENPO" ? "Orders: " : "Items: "} ${widget.TotalNo}", style: GoogleFonts.lato(textStyle:  const TextStyle( fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF4A4A4A))),),
+                Text("${widget.ReportType == "OPENSO" || widget.ReportType == "OPENPO" ? "Order Value: " : "Total: "}  ${widget.TotalAmt.replaceAll("\$", "")}", style: GoogleFonts.lato(textStyle:  const TextStyle( fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF4A4A4A))),),
               ],
             ),
 
@@ -118,29 +119,35 @@ class DataListTile extends StatelessWidget {
   final bool isSlide;
   final Function onSlide;
   final Function() onTap;
+  final String status;
   Divider div = const Divider(height: 1.2, color: Color(0xFFEAEAEB),);
-  TextStyle titleStyle = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black));
-  TextStyle tailStyle = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 15,fontWeight: FontWeight.w400, color: Colors.black, fontStyle: FontStyle.italic));
+  TextStyle titleStyle = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black));
+  TextStyle tailStyle = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 15,fontWeight: FontWeight.w400, color: Colors.black, ));
   TextStyle subTitleStyle = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 15, color: Colors.black));
   TextStyle moneyStyle = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700, color: Color(0xFF000086),));
   TextStyle btn = GoogleFonts.lato( textStyle: const TextStyle(fontSize: 17,fontWeight: FontWeight.normal, color: Colors.blue));
 
 
   DataListTile({
-    required this.title, required this.subTitle, required this.onTap, required this.tail, required this.money, this.hasIcon = true, this.isSlide = false, required this.onSlide
+    required this.title, required this.subTitle, required this.onTap, required this.tail, required this.money, this.hasIcon = true, this.isSlide = false, required this.onSlide, this.status = ""
   });
 
 
 
   @override
   Widget build(BuildContext context) {
+    Icon statusIcon = const Icon(Icons.circle_outlined, color:  Colors.grey, size: 17);
+    if(status == "OPEN"){statusIcon =  Icon(Icons.circle, color:  Colors.green[600], size: 17,);}
+    if(status == "WORK"){statusIcon =  Icon(Icons.circle, color:  Colors.grey, size: 17);}
     List<Widget> details = [];
     for(var i = 0; i < subTitle.length; i++){
+      TextAlign align = i >= 1 && (money.isEmpty || money == "X") ? TextAlign.right : TextAlign.left;
+      if(subTitle.length == 3 && i == 1 ) align = TextAlign.center;
       details.add(Expanded(
-        child: Text(subTitle[i], style: subTitleStyle, overflow: TextOverflow.ellipsis, textAlign: i >= 1 && money.isEmpty ? TextAlign.right : TextAlign.left))
+        child: Text(subTitle[i], style: subTitleStyle, overflow: TextOverflow.ellipsis, textAlign: align))
       );
     }
-    if(money.isNotEmpty){
+    if(money.isNotEmpty && money != "X"){
       details.add(Expanded(
         child:Text(money, style: moneyStyle, overflow: TextOverflow.ellipsis, textAlign: TextAlign.right,)));
     }
@@ -164,7 +171,20 @@ class DataListTile extends StatelessWidget {
 
           ),
             child: ListTile(
-              contentPadding: const EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 5),
+              leading: status.isEmpty ? null : Transform.translate(
+                offset: Offset(0, -22),
+                child: Container(
+                  height: 15,
+                  width: 20,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(6)),
+                  ),
+                  child: Padding(padding: EdgeInsets.only(top: 0, bottom: 0, left:  8, right: 0), child: statusIcon,),
+                ),
+              ),
+              contentPadding:  EdgeInsets.only(top: 0, bottom: 0, left: status.isEmpty ? 15 : 0, right: 5),
+              horizontalTitleGap: 0,
+              minLeadingWidth: 35,
               dense: true,
               tileColor: Colors.white,
               onTap: onTap,

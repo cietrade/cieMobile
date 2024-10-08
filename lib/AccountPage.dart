@@ -773,7 +773,7 @@ class _AccountPageState extends State<AccountPage> {
                 padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0, bottom: 15.0),
                 child: Row(children: [
                   Expanded(child:  Text("Orders", style: infoLinkLbl,),),
-                  Expanded(child: Text("${widget.account.TotalSO != "0" ? widget.account.TotalSO : widget.account.TotalPO } Open", textAlign: TextAlign.right, style: infoLinkDetail,),)
+                  Expanded(child: Text("(${widget.account.TotalSO != "0" ? widget.account.TotalSO : widget.account.TotalPO })", textAlign: TextAlign.right, style: infoLinkDetail,),)
                 ],)
             ),
           )

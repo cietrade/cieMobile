@@ -487,6 +487,7 @@ class _HomePageState extends State<HomePage> {
           String DefDeptNm = body[i]["DefDeptNm"] == null ? "" : body[i]["DefDeptNm"].toString();
           String DefTerms = body[i]["DefTerms"] == null ? "" : body[i]["DefTerms"].toString();
           String FxRate = body[i]["FxRate"] == null ? "" : body[i]["FxRate"].toString();
+          String Status = body[i]["Status"] == null ? "" : body[i]["Status"].toString();
           String ObjID = HeaderLabel.replaceAll("SO ", "").replaceAll("PO ", "").replaceAll("Invoice ", "").replaceAll("Wks ", "").replaceAll("Ticket ", "");
 
           if( HeaderValue.isNotEmpty ){
@@ -507,7 +508,8 @@ class _HomePageState extends State<HomePage> {
                   tail: "${DateFormat("MMM, d yyyy").format(dt)}",//tail: HeaderValue,
                   onSlide: (){deleteConfirm(ObjID, ReportType.replaceAll("OPEN", ""));},
                   isSlide: true,
-                  money: "")
+                  status: Status,
+                  money: "X")
               );
               data.add(div);
               count += 1;
@@ -661,7 +663,7 @@ class _HomePageState extends State<HomePage> {
           String moneyStr = "${CurSymbol} ${NumberFormat("###,###.##").format(double.parse(ReportValue))}";
 
           if(ReportTonnage.isNotEmpty) subTitle.add("${NumberFormat("###,###.##").format(double.parse(ReportTonnage))} ${getUOM(globals.UOM)} ");
-          if(ReportCount.isNotEmpty) subTitle.add("${ReportCount.trim()} ${ReportCountLabel.trim()}");
+          if(ReportCount.isNotEmpty && ReportValueLabel != "Loads") subTitle.add("${ReportCount.trim()} ${ReportCountLabel.trim()}");
           if(ReportValueLabel == "Loads") moneyStr = "${NumberFormat("###,###.##").format(double.parse(ReportValue))}";
 
           data.add(DataListTile(
@@ -687,6 +689,7 @@ class _HomePageState extends State<HomePage> {
           backText: Title == "Home" ? "" : "Back",//PrevTitle,
           isLoading: false,
           onBack: widget.popPage ? prevPage : goBack,
+          ReportType: ReportType,
         onRefresh:  refresh,
       );
 
@@ -703,6 +706,7 @@ class _HomePageState extends State<HomePage> {
           showTotals: false,
           backText: "Back" ,
           isLoading: false,
+          ReportType: ReportType,
           onBack: widget.popPage ? prevPage : goBack,
         onRefresh: refresh,
       );
@@ -723,7 +727,11 @@ class _HomePageState extends State<HomePage> {
     Response rep = await delete(url, headers: {"Content-Type": "application/json"}, body: json.encode(data));
 
     if(rep.statusCode != 200){
-      PopUp(context, "Delete Failed", jsonDecode(rep.body)["Message"]);
+      String prefix = "Error: The transaction ended in the trigger. The batch has been aborted.";
+
+      String msg = jsonDecode(rep.body)["Message"].replaceAll(prefix, "");
+      msg = msg.replaceAll("\r\n|Cannot delete \"PO\" because one or more \"Worksheet Detail Item\" are being referenced.", "Cannot delete Order because one or more items have been shipped.");
+      PopUp(context, "Delete Failed", msg);
     } else {
       refresh();
     }

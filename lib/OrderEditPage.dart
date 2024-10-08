@@ -437,7 +437,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
                 )
             ),
             div,
-            getFieldTile("MinMax UOM", _txtMinMaxUOM, true,  (){
+            getFieldTile("UOM", _txtMinMaxUOM, true,  (){
               Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                   FixFont(context, SearchPageCbo(objType: "PORT", objID: "", showSearch: false, title: "Min/Max Weight UOM", setList: UOM, onClick: setMinMaxUOM)))
               );
@@ -534,7 +534,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
         contentPadding: const EdgeInsets.only(top: 0, bottom: 10, left: 15, right: 20),
         dense: true,
         tileColor: Colors.white,
-        title:  Text(Detail.PODesc.isEmpty ? Detail.GradeNm : Detail.PODesc, style: detailTitleStyle,),
+        title:  Text("${Detail.PODesc.isEmpty ? Detail.GradeNm : Detail.PODesc} ${Detail.Specifications.isEmpty ? "" : "- ${Detail.Specifications}"}", style: detailTitleStyle,),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -608,12 +608,12 @@ class _OrderEditPageState extends State<OrderEditPage> {
     TextEditingController _txtDetailPODesc= TextEditingController();
 
     _txtDetailGrade.text = curDetail.GradeNm;
-    _txtDetailPrice.text = NumberFormat("##0.##", "en_US").format(double.parse(curDetail.Price));
+    _txtDetailPrice.text = NumberFormat("##0.##", "en_US").format(cnvDouble(curDetail.Price));
     _txtDetailPriceUOM.text = getUOM(curDetail.PriceUOM);
-    _txtDetailWt.text = NumberFormat("##0.##", "en_US").format(double.parse(curDetail.Weight));
+    _txtDetailWt.text = NumberFormat("##0.##", "en_US").format(cnvDouble(curDetail.Weight));
     _txtDetailWtUOM.text = getUOM(curDetail.WeightUOM);
-    _txtDetailAmt.text =  fCur.format(double.parse(curDetail.FxAmount));
-    _txtDetailUnits.text = fUnit.format(double.parse(curDetail.Units));
+    _txtDetailAmt.text =  fCur.format(cnvDouble(curDetail.FxAmount));
+    _txtDetailUnits.text = fUnit.format(cnvDouble(curDetail.Units));
     _txtDetailUnitType.text = curDetail.Packaging;
     _txtDetailSpecifications.text = curDetail.Specifications;
     _txtDetailPODesc.text = curDetail.PODesc;
@@ -1055,7 +1055,6 @@ class _OrderEditPageState extends State<OrderEditPage> {
       }
     }
 
-    Navigator.of(context).pop();
     Navigator.pushReplacement(context, MaterialPageRoute(
         settings:   RouteSettings(name: "OrderEdit_${curOrder.PONumber}"),
         builder: (BuildContext context) => FixFont(context, OrderEditPage(refresh: widget.refresh, Order:curOrder)))

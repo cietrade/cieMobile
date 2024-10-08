@@ -203,7 +203,14 @@ class _LoginState extends State<LoginPage> {
 
   //Checks login credentials
   Future<bool> Login(String userNm, String pswd) async {
-    Response rep = await get(Uri.parse("${globals.http}://app.cietrade.com/cieAppREST/api/LoginAutoUpdate?User=$userNm&Pswd=$pswd&AppName=cieMobile&Version=$version"));
+    var url = Uri.parse("${globals.http}://app.cietrade.com/cieAppREST/api/LoginAutoUpdate");
+    Map data = {
+      "User": userNm,
+      "Pswd": pswd,
+      "AppName": "cieMobile",
+      "Version": version
+    };
+    Response rep = await post(url, headers: {"Content-Type": "application/json"}, body: json.encode(data));
 
     if (rep.statusCode == 200) {
       var body = jsonDecode(rep.body);
