@@ -361,7 +361,7 @@ class _WksPageState extends State<WksPage> {
             ),
             Expanded(
               flex: 2,
-              child: Text("${ NumberFormat("###,###.00").format(double.parse(widget.wks.FxInvoiceAmt.replaceAll(",", "")))} ${widget.wks.CurrencyCd}", textAlign: TextAlign.right, style: totalValueStyle,),
+              child: Text("${ NumberFormat("###,###.00").format(cnvDouble(widget.wks.FxInvoiceAmt.replaceAll(",", "")))} ${widget.wks.CurrencyCd}", textAlign: TextAlign.right, style: totalValueStyle,),
             )
           ],
         ),
@@ -375,7 +375,7 @@ class _WksPageState extends State<WksPage> {
             ),
             Expanded(
               flex: 2,
-              child: Text("${ NumberFormat("###,###.00").format(double.parse(widget.wks.FxPayments.replaceAll(",", "")))} ${widget.wks.CurrencyCd}", textAlign: TextAlign.right, style: totalValueStyle,),
+              child: Text("${ NumberFormat("###,###.00").format(cnvDouble(widget.wks.FxPayments.replaceAll(",", "")))} ${widget.wks.CurrencyCd}", textAlign: TextAlign.right, style: totalValueStyle,),
             )
           ],
         ),
@@ -389,7 +389,7 @@ class _WksPageState extends State<WksPage> {
             ),
             Expanded(
               flex: 2,
-              child: Text("${ NumberFormat("###,###.00").format(double.parse(widget.wks.FxBalanceDue.replaceAll(",", "")))} ${widget.wks.CurrencyCd}", textAlign: TextAlign.right, style: totalValueStyle,),
+              child: Text("${ NumberFormat("###,###.00").format(cnvDouble(widget.wks.FxBalanceDue.replaceAll(",", "")))} ${widget.wks.CurrencyCd}", textAlign: TextAlign.right, style: totalValueStyle,),
             )
           ],
         ),
@@ -495,7 +495,7 @@ class _WksPageState extends State<WksPage> {
             ),
             Expanded(
               flex: 2,
-              child: Text("${ NumberFormat("###,###.##").format(double.parse(widget.wks.TotalWt))} ${getUOM(widget.wks.TotalWtUOM)}", textAlign: TextAlign.right,  style: totalValueStyle,),
+              child: Text("${ NumberFormat("###,###.##").format(cnvDouble(widget.wks.TotalWt))} ${getUOM(widget.wks.TotalWtUOM)}", textAlign: TextAlign.right,  style: totalValueStyle,),
             )
           ],
         ),

@@ -630,12 +630,12 @@ class _HomePageState extends State<HomePage> {
             String DetailValue = body[i]["DetailValue"] == null ? "" : body[i]["DetailValue"].toString();
             String DetailValueLabel = body[i]["DetailValueLabel"] == null ? "" : body[i]["DetailValueLabel"].toString();
             String CurSymbol = body[i]["CurSymbol"] == null ? "" : body[i]["CurSymbol"].toString();
-            String moneyStr = "${CurSymbol} ${NumberFormat("###,###.##").format(double.parse(DetailValue))}";
+            String moneyStr = "${CurSymbol} ${NumberFormat("###,###.##").format(cnvDouble(DetailValue))}";
 
-            if (DetailTonnage.isNotEmpty) subTitle.add("${NumberFormat("###,###.##").format(double.parse(DetailTonnage))} ${getUOM(globals.UOM)}");
+            if (DetailTonnage.isNotEmpty) subTitle.add("${NumberFormat("###,###.##").format(cnvDouble(DetailTonnage))} ${getUOM(globals.UOM)}");
             if (DetailCount.isNotEmpty) subTitle.add("${DetailCount.trim()} ${DetailCountLabel.trim()}");
-            if (DetailValue.isNotEmpty) totalAmt += double.parse(DetailValue);
-            if (DetailValueLabel == "Loads") moneyStr = "${NumberFormat("###,###.##").format(double.parse(DetailValue))} Loads";
+            if (DetailValue.isNotEmpty) totalAmt += cnvDouble(DetailValue);
+            if (DetailValueLabel == "Loads") moneyStr = "${NumberFormat("###,###.##").format(cnvDouble(DetailValue))} Loads";
             curSymbolTotal = CurSymbol;
             count += 1;
 
@@ -660,11 +660,11 @@ class _HomePageState extends State<HomePage> {
           String ReportCount = body[i]["ReportCount"] == null ? "" : body[i]["ReportCount"].toString();
           String ReportCountLabel = body[i]["ReportCountLabel"] == null ? "" : body[i]["ReportCountLabel"].toString();
           String ReportValueLabel = body[i]["ReportValueLabel"] == null ? "" : body[i]["ReportValueLabel"].toString();
-          String moneyStr = "${CurSymbol} ${NumberFormat("###,###.##").format(double.parse(ReportValue))}";
+          String moneyStr = "${CurSymbol} ${NumberFormat("###,###.##").format(cnvDouble(ReportValue))}";
 
-          if(ReportTonnage.isNotEmpty) subTitle.add("${NumberFormat("###,###.##").format(double.parse(ReportTonnage))} ${getUOM(globals.UOM)} ");
+          if(ReportTonnage.isNotEmpty) subTitle.add("${NumberFormat("###,###.##").format(cnvDouble(ReportTonnage))} ${getUOM(globals.UOM)} ");
           if(ReportCount.isNotEmpty && ReportValueLabel != "Loads") subTitle.add("${ReportCount.trim()} ${ReportCountLabel.trim()}");
-          if(ReportValueLabel == "Loads") moneyStr = "${NumberFormat("###,###.##").format(double.parse(ReportValue))}";
+          if(ReportValueLabel == "Loads") moneyStr = "${NumberFormat("###,###.##").format(cnvDouble(ReportValue))}";
 
           data.add(DataListTile(
               title: ReportTitle,

@@ -527,7 +527,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
 
     String UnitStr = "";
     if(Detail.Packaging.isNotEmpty){
-      UnitStr = "${Detail.Packaging}-${fUnit.format(double.parse(Detail.Units))}";
+      UnitStr = "${Detail.Packaging}-${fUnit.format(cnvDouble(Detail.Units))}";
     }
 
     return ListTile(
@@ -710,7 +710,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
                           double amt = calcValue(cnvDouble(_txtDetailPrice.text), getUOMID(_txtDetailPriceUOM.text), cnvDouble(_txtDetailWt.text), getUOMID(_txtDetailWtUOM.text));
                           _txtDetailAmt.text = fCur.format(amt);
                           setState(() {
-                            curDetail.Amount = (amt/double.parse(curOrder.FxRate)).toString();
+                            curDetail.Amount = (amt/cnvDouble(curOrder.FxRate)).toString();
                             curDetail.FxAmount = amt.toString();
                             curDetail.Price = _txtDetailPrice.text;
                           });
@@ -727,7 +727,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
                               curDetail.PriceUOM = getUOMID(item.objID);
                               double amt = calcValue(cnvDouble(_txtDetailPrice.text), getUOMID(_txtDetailPriceUOM.text), cnvDouble(_txtDetailWt.text), getUOMID(_txtDetailWtUOM.text));
                               _txtDetailAmt.text = fCur.format(amt);
-                              curDetail.Amount = (amt/double.parse(curOrder.FxRate)).toString();
+                              curDetail.Amount = (amt/cnvDouble(curOrder.FxRate)).toString();
                               curDetail.FxAmount = amt.toString();
                             });
 
@@ -760,7 +760,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
                           double amt = calcValue(cnvDouble(_txtDetailPrice.text), getUOMID(_txtDetailPriceUOM.text), cnvDouble(_txtDetailWt.text), getUOMID(_txtDetailWtUOM.text));
                           _txtDetailAmt.text = fCur.format(amt);
                           setState(() {
-                            curDetail.Amount = (amt/double.parse(curOrder.FxRate)).toString();
+                            curDetail.Amount = (amt/cnvDouble(curOrder.FxRate)).toString();
                             curDetail.FxAmount = amt.toString();
                             curDetail.Weight = _txtDetailWt.text;
                           });
@@ -777,7 +777,7 @@ class _OrderEditPageState extends State<OrderEditPage> {
                               curDetail.WeightUOM = getUOMID(item.objID);
                               double amt = calcValue(cnvDouble(_txtDetailPrice.text), getUOMID(_txtDetailPriceUOM.text), cnvDouble(_txtDetailWt.text), getUOMID(_txtDetailWtUOM.text));
                               _txtDetailAmt.text = fCur.format(amt);
-                              curDetail.Amount = (amt/double.parse(curOrder.FxRate)).toString();
+                              curDetail.Amount = (amt/cnvDouble(curOrder.FxRate)).toString();
                               curDetail.FxAmount = amt.toString();
                             });
 
@@ -1187,7 +1187,7 @@ void deleteOrder() async{
            "Weight":curOrder.Details[i].Weight,
            "WeightUOM":curOrder.Details[i].WeightUOM,
            "UnitTypeID":curOrder.Details[i].UnitTypeID,
-           "Units":fUnit.format(double.parse(curOrder.Details[i].Units)),
+           "Units":fUnit.format(cnvDouble(curOrder.Details[i].Units)),
            "Price":curOrder.Details[i].Price,
            "PriceUOM":curOrder.Details[i].PriceUOM,
            "FxAmount":round(curOrder.Details[i].FxAmount,2),
